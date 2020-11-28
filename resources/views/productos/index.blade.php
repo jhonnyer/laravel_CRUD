@@ -13,6 +13,7 @@ Leer Registros
     <td>Precio</td>
     <td>Fecha</td>
     <td>País de Origen</td>
+    <td>Imágen</td>
     </tr>
 
         @foreach($productos as $producto)
@@ -24,6 +25,7 @@ Leer Registros
             <td>{{$producto->Precio}}</td>
             <td>{{$producto->Fecha}}</td>
             <td>{{$producto->PaisOrigen}}</td>
+            <td><img src="/images/{{$producto->ruta}}" width="150" /></td>
         <!-- <td>{{$producto->NombreArticulo}}&nbsp;{{$producto->seccion}}&nbsp{{$producto->Precio}}&nbsp;{{$producto->Fecha}}&nbsp;{{$producto->Fecha}}&nbsp;{{$producto->PaisOrigen}}</td> -->
         </tr>
         @endforeach

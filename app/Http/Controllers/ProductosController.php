@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Http\Requests\Create_Productos_Request;
 
 class ProductosController extends Controller
 {
@@ -37,17 +38,27 @@ class ProductosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Create_Productos_Request $request)
+    {   
+        // $this->validate($request,['seccion'=>'required','PaisOrigen'=>'required','NombreArticulo'=>'required']);
         // return view("productos.insert");
-        $producto=new Producto;
-        $producto->NombreArticulo=$request->NombreArticulo;
-        $producto->seccion=$request->seccion;
-        $producto->Precio=$request->Precio;
-        $producto->Fecha=$request->Fecha;
-        $producto->PaisOrigen=$request->PaisOrigen;
-        $producto->save();
+        // $producto=new Producto;
+        // $producto->NombreArticulo=$request->NombreArticulo;
+        // $producto->seccion=$request->seccion;
+        // $producto->Precio=$request->Precio;
+        // $producto->Fecha=$request->Fecha;
+        // $producto->PaisOrigen=$request->PaisOrigen;
+        // $producto->save();
         //
+        // SEGUNDA OPCION
+        $entrada=$request->all();
+        // file nombre archivo a enviar en el formulario
+        if($archivo=$request->file('file')){
+            $nombre=$archivo->getClientOriginalName();
+            $archivo->move('images',$nombre);
+            $entrada['ruta']=$nombre;
+        }
+        Producto::create($entrada);
     }
 
     /**

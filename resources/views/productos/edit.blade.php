@@ -7,7 +7,8 @@ Editar Registros
 
 @section("contenido")
 
-    <form method="post" action="/productos/{{$producto->id}}">
+    <!-- FORMULARIO ACTUALIZAR ESTANDAR  -->
+    <!-- <form method="post" action="/productos/{{$producto->id}}">
     <table>
     <tr>
     <td>Nombre: </td>
@@ -39,22 +40,66 @@ Editar Registros
         
         <tr>
         <td>
-        <!-- Boton enviar que ocupe dos columnas y este centradp  -->
-        <!-- <td colspan="2" align="center"> -->
+        Boton enviar que ocupe dos columnas y este centradp  -->
+        <!-- <td colspan="2" align="center">
         <input type="submit" name="enviar" value="Actualizar">
         </td>
-        <!-- <td>
+        <td>
             <input type="reset" name="borrar" value="borrar">
-        </td> -->
+        </td>
         </tr>
     </table>
-    </form>
-    <form method="post" action="/productos/{{$producto->id}}">
+    </form> -->
+    <!-- FORMULARIO CON LARAVEL COLLECTIVE -->
+    {!!Form::model($producto,['method'=>'PUT','action'=>['App\Http\Controllers\ProductosController@update',$producto->id]])!!}
+    <table>
+    <tr>
+    <td>{!!Form::label('nombre','Nombre')!!} </td>
+    <td>
+        {!!Form::text('NombreArticulo')!!}
+        {{csrf_field()}}
+        </td></tr>
+        <tr>
+            <td>{!!Form::label('seccion','Sección')!!} </td>
+        <td>
+        {!!Form::text('seccion')!!}
+        </td></tr>
+        <tr>
+            <td>{!!Form::label('precio','Precio')!!} </td>
+        <td>
+        {!!Form::text('Precio')!!}
+        </td></tr>
+        <tr>
+            <td>{!!Form::label('fecha','Fecha')!!} </td>
+        <td>
+        {!!Form::text('Fecha')!!}
+        </td></tr>
+        <tr>
+            <td>{!!Form::label('PaisOrigen','País de Origen')!!} </td>
+        <td>
+        {!!Form::text('PaisOrigen')!!}
+        </td></tr>
+        
+        <tr>
+        <td>
+        {!!Form::submit('Enviar')!!}
+        </td>
+        <td>
+        {!!form::reset('Borrar')!!}
+        </td>
+        </tr>
+    </table>
+    {!!Form::close()!!}
+
+    <!-- ELIMINAR REGISTROS LARAVEL COLLECTIVE -->
+    <!-- <form method="post" action="/productos/{{$producto->id}}"> -->
+    {!!Form::open(['method'=>'DELETE','action'=>['App\Http\Controllers\ProductosController@destroy',$producto->id]])!!}
         {{csrf_field()}}
         <input type="hidden" name="_method" value="DELETE">
-        <input type="submit" value="Eliminar Registro">
-    </form>
-
+        {!!Form::submit('Eliminar Registro')!!}
+        <!-- <input type="submit" value="Eliminar Registro"> -->
+    <!-- </form> -->
+    {!!Form::close()!!}
 @endsection
 
 @section("pie")
